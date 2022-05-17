@@ -27,22 +27,23 @@ public class AutorDAO implements IAutor {
     }
 
     @Override
-    public List<AutorDAO> getAll() throws SQLException {
-        List<AutorDAO> lista = new ArrayList<>();
-        
-        try ( Statement st = con.createStatement()) {
-            // Ejecutamos la sentencia y obtenemos las filas en el objeto ResultSet
-            ResultSet res = st.executeQuery("select * from Autor");
-            // Ahora construimos la lista, recorriendo el ResultSet y mapeando los datos
-            while (res.next()) {
-                AutorDAO p = new AutorDAO();
-                // Recogemos los datos de la persona, guardamos en un objeto
-                p.set(res.getInt("pk"));
-                p.setNombre(res.getString("nombre"));
-                p.setFechaNacimiento(res.getDate("fecha_nac").toLocalDate());
+    public List<Autor> getAll() throws SQLException {
+        List<Autor> lista = new ArrayList<>();
 
-                //Añadimos el objeto a la lista
-                lista.add(p);
+        try ( Statement st = con.createStatement()) {
+
+            ResultSet res = st.executeQuery("select * from Autor");
+
+            while (res.next()) {
+                Autor a = new Autor();
+
+                a.setNumAutor(res.getInt("numAutor"));
+                a.setNombre(res.getString("nombre"));
+                a.setApe1(res.getString("ape1"));
+                a.setApe2(res.getString("ape2"));
+                a.setNumLibros(res.getInt("numLibros"));
+
+                lista.add(a);
             }
         }
 
@@ -50,28 +51,27 @@ public class AutorDAO implements IAutor {
     }
 
     @Override
-    public PersonaVO findByPk(int pk) throws SQLException {
+    public Autor findByPk(int pk) throws SQLException {
 
         ResultSet res = null;
-        PersonaVO persona = new PersonaVO();
+        Autor a = new Autor();
 
         String sql = "select * from persona where pk=?";
 
         try ( PreparedStatement prest = con.prepareStatement(sql)) {
-            // Preparamos la sentencia parametrizada
+
             prest.setInt(1, pk);
 
-            // Ejecutamos la sentencia y obtenemos las filas en el objeto ResultSet
             res = prest.executeQuery();
 
-            // Nos posicionamos en el primer registro del Resultset. Sólo debe haber una fila
-            // si existe esa pk
             if (res.next()) {
-                // Recogemos los datos de la persona, guardamos en un objeto
-                persona.setPk(res.getInt("pk"));
-                persona.setNombre(res.getString("nombre"));
-                persona.setFechaNacimiento(res.getDate("fecha_nac").toLocalDate());
-                return persona;
+
+                a.setNumAutor(res.getInt("numAutor"));
+                a.setNombre(res.getString("nombre"));
+                a.setApe1(res.getString("ape1"));
+                a.setApe2(res.getString("ape2"));
+                a.setNumLibros(res.getInt("numLibros"));
+                return a;
             }
 
             return null;
@@ -79,24 +79,25 @@ public class AutorDAO implements IAutor {
     }
 
     @Override
-    public int insertPersona(PersonaVO persona) throws SQLException {
+    public int insertPersona(Autor a) throws SQLException {
 
         int numFilas = 0;
-        String sql = "insert into persona values (?,?,?)";
+        String sql = "insert into Autor values (?,?,?,?,?)";
 
-        if (findByPk(persona.getPk()) != null) {
+        if (findByPk(a.getNumAutor()) != null) {
             // Existe un registro con esa pk
             // No se hace la inserción
             return numFilas;
         } else {
-            // Instanciamos el objeto PreparedStatement para inserción
-            // de datos. Sentencia parametrizada
+
             try ( PreparedStatement prest = con.prepareStatement(sql)) {
 
-                // Establecemos los parámetros de la sentencia
-                prest.setInt(1, persona.getPk());
-                prest.setString(2, persona.getNombre());
-                prest.setDate(3, Date.valueOf(persona.getFechaNacimiento()));
+
+                prest.setInt(1, a.getNumAutor());
+                prest.setString(2, a.getNombre());
+                prest.setString(3, a.getApe1());
+                prest.setString(4, a.getApe2());
+                prest.setInt(5, a.getNumLibros());
 
                 numFilas = prest.executeUpdate();
             }
@@ -106,10 +107,10 @@ public class AutorDAO implements IAutor {
     }
 
     @Override
-    public int insertPersona(List<PersonaVO> lista) throws SQLException {
+    public int insertPersona(List<Autor> lista) throws SQLException {
         int numFilas = 0;
 
-        for (PersonaVO tmp : lista) {
+        for (Autor tmp : lista) {
             numFilas += insertPersona(tmp);
         }
 
@@ -119,24 +120,21 @@ public class AutorDAO implements IAutor {
     @Override
     public int deletePersona() throws SQLException {
 
-        String sql = "delete from persona";
+        String sql = "delete from Autor";
 
         int nfilas = 0;
 
-        // Preparamos el borrado de datos  mediante un Statement
-        // No hay parámetros en la sentencia SQL
         try ( Statement st = con.createStatement()) {
-            // Ejecución de la sentencia
+
             nfilas = st.executeUpdate(sql);
         }
 
-        // El borrado se realizó con éxito, devolvemos filas afectadas
         return nfilas;
 
     }
 
     @Override
-    public int deletePersona(PersonaVO persona) throws SQLException {
+    public int deletePersona(Autor persona) throws SQLException {
         int numFilas = 0;
 
         String sql = "delete from persona where pk = ?";
@@ -144,16 +142,16 @@ public class AutorDAO implements IAutor {
         // Sentencia parametrizada
         try ( PreparedStatement prest = con.prepareStatement(sql)) {
 
-            // Establecemos los parámetros de la sentencia
-            prest.setInt(1, persona.getPk());
-            // Ejecutamos la sentencia
+
+            prest.setInt(1, persona.getNumAutor());
+
             numFilas = prest.executeUpdate();
         }
         return numFilas;
     }
 
     @Override
-    public int updatePersona(int pk, PersonaVO nuevosDatos) throws SQLException {
+    public int updatePersona(int pk, Autor nuevosDatos) throws SQLException {
 
         int numFilas = 0;
         String sql = "update persona set nombre = ?, fecha_nac = ? where pk=?";

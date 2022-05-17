@@ -13,18 +13,18 @@ import java.util.List;
  */
 public interface IAutor {
 
-    List<AutorDAO> getAll() throws SQLException;
+    List<Autor> getAll() throws SQLException;
 
-    AutorDAO findByPk(int pk) throws SQLException;
+    Autor findByPk(int pk) throws SQLException;
 
-    int insertAutor(AutorDAO persona) throws SQLException;
+    int insertAutor(Autor persona) throws SQLException;
 
-    int insertAutor(List<AutorDAO> lista) throws SQLException;
+    int insertAutor(List<Autor> lista) throws SQLException;
 
-    int deleteAutor(AutorDAO a) throws SQLException;
+    int deleteAutor(Autor a) throws SQLException;
 
     int deleteAutor() throws SQLException;
 
-    int updateAutor(int pk, AutorDAO nuevosDatos) throws SQLException;
+    int updateAutor(int pk, Autor nuevosDatos) throws SQLException;
 
 }

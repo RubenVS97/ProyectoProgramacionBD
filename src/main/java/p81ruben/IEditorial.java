@@ -13,18 +13,18 @@ import java.util.List;
  */
 public interface IEditorial {
     
-    List<EditorialDAO> getAll() throws SQLException;
+    List<Editorial> getAll() throws SQLException;
 
-    EditorialDAO findByPk(int pk) throws SQLException;
+    Editorial findByPk(int pk) throws SQLException;
 
-    int insertEditorial(EditorialDAO editorial) throws SQLException;
+    int insertEditorial(Editorial editorial) throws SQLException;
 
-    int insertEditorial(List<EditorialDAO> lista) throws SQLException;
+    int insertEditorial(List<Editorial> lista) throws SQLException;
 
-    int deleteEditorial(EditorialDAO e) throws SQLException;
+    int deleteEditorial(Editorial e) throws SQLException;
 
     int deleteEditorial() throws SQLException;
 
-    int updateEditorial(int pk, EditorialDAO nuevosDatos) throws SQLException;
+    int updateEditorial(int pk, Editorial nuevosDatos) throws SQLException;
     
 }

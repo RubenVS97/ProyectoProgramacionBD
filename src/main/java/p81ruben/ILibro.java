@@ -13,18 +13,18 @@ import java.util.List;
  */
 public interface ILibro {
     
-    List<LibroDAO> getAll() throws SQLException;
+    List<Libro> getAll() throws SQLException;
 
-    LibroDAO findByPk(int pk) throws SQLException;
+    Libro findByPk(int pk) throws SQLException;
 
-    int insertLibro(LibroDAO libro) throws SQLException;
+    int insertLibro(Libro libro) throws SQLException;
 
-    int insertLibro(List<LibroDAO> lista) throws SQLException;
+    int insertLibro(List<Libro> lista) throws SQLException;
 
-    int deleteLibro(LibroDAO l) throws SQLException;
+    int deleteLibro(Libro l) throws SQLException;
 
     int deleteLibro() throws SQLException;
 
-    int updateLibro(int pk, LibroDAO nuevosDatos) throws SQLException;
+    int updateLibro(int pk, Libro nuevosDatos) throws SQLException;
     
 }
