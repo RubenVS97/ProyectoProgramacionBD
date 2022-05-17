@@ -10,4 +10,39 @@ package p81ruben;
  */
 public class Editorial {
     
+    private int numEditorial;
+    private String nombre;
+    private int numTotalLibros;
+
+    public int getNumEditorial() {
+        return numEditorial;
+    }
+
+    public void setNumEditorial(int numEditorial) {
+        this.numEditorial = numEditorial;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public int getNumTotalLibros() {
+        return numTotalLibros;
+    }
+
+    public void setNumTotalLibros(int numTotalLibros) {
+        this.numTotalLibros = numTotalLibros;
+    }
+
+    @Override
+    public String toString() {
+        return "Editorial{" + "numEditorial=" + numEditorial + ", nombre=" + nombre + ", numTotalLibros=" + numTotalLibros + '}';
+    }
+    
+    
+    
 }
