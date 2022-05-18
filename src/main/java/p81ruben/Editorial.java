@@ -9,10 +9,19 @@ package p81ruben;
  * @author ruben
  */
 public class Editorial {
-    
+
     private int numEditorial;
     private String nombre;
     private int numTotalLibros;
+
+    public Editorial() {
+    }
+
+    public Editorial(int numEditorial, String nombre, int numTotalLibros) {
+        this.numEditorial = numEditorial;
+        this.nombre = nombre;
+        this.numTotalLibros = numTotalLibros;
+    }
 
     public int getNumEditorial() {
         return numEditorial;
@@ -42,7 +51,5 @@ public class Editorial {
     public String toString() {
         return "Editorial{" + "numEditorial=" + numEditorial + ", nombre=" + nombre + ", numTotalLibros=" + numTotalLibros + '}';
     }
-    
-    
-    
+
 }

@@ -9,12 +9,23 @@ package p81ruben;
  * @author ruben
  */
 public class Libro {
-    
+
     private int isbn;
     private String titulo;
     private String genero;
     private int numEditorial;
     private int numAutor;
+
+    public Libro() {
+    }
+
+    public Libro(int isbn, String titulo, String genero, int numEditorial, int numAutor) {
+        this.isbn = isbn;
+        this.titulo = titulo;
+        this.genero = genero;
+        this.numEditorial = numEditorial;
+        this.numAutor = numAutor;
+    }
 
     public int getIsbn() {
         return isbn;
@@ -60,7 +71,5 @@ public class Libro {
     public String toString() {
         return "Libro{" + "isbn=" + isbn + ", titulo=" + titulo + ", genero=" + genero + ", numEditorial=" + numEditorial + ", numAutor=" + numAutor + '}';
     }
-    
-    
-    
+
 }

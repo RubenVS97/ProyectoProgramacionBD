@@ -17,8 +17,8 @@ import java.util.List;
  *
  * @author ruben
  */
-public class LibroDAO implements ILibro{
- 
+public class LibroDAO implements ILibro {
+
     private Connection con = null;
 
     public LibroDAO() {
@@ -79,7 +79,7 @@ public class LibroDAO implements ILibro{
 
     @Override
     public int insertLibro(Libro libro) throws SQLException {
-       int numFilas = 0;
+        int numFilas = 0;
         String sql = "insert into Libro values (?,?,?,?,?)";
 
         if (findByPk(libro.getIsbn()) != null) {
@@ -94,7 +94,7 @@ public class LibroDAO implements ILibro{
                 prest.setString(3, libro.getGenero());
                 prest.setInt(4, libro.getNumEditorial());
                 prest.setInt(5, libro.getNumAutor());
-                
+
                 numFilas = prest.executeUpdate();
             }
             return numFilas;
@@ -129,7 +129,7 @@ public class LibroDAO implements ILibro{
 
     @Override
     public int deleteLibro() throws SQLException {
-       String sql = "delete from Libro";
+        String sql = "delete from Libro";
 
         int nfilas = 0;
 
@@ -153,32 +153,15 @@ public class LibroDAO implements ILibro{
 
             try ( PreparedStatement prest = con.prepareStatement(sql)) {
 
-                prest.setInt(1, pk);
-                prest.setString(2, nuevosDatos.getTitulo());
-                prest.setString(3, nuevosDatos.getGenero());
-                prest.setInt(4, nuevosDatos.getNumEditorial());
-                prest.setInt(5, nuevosDatos.getNumAutor());
+                prest.setInt(5, pk);
+                prest.setString(1, nuevosDatos.getTitulo());
+                prest.setString(2, nuevosDatos.getGenero());
+                prest.setInt(3, nuevosDatos.getNumEditorial());
+                prest.setInt(4, nuevosDatos.getNumAutor());
                 numFilas = prest.executeUpdate();
             }
             return numFilas;
         }
     }
-    
-    public int cambiarNombres(String newName, String oldName) throws SQLException {
 
-        int res = 0;
-
-        String sql = "{call cambiar_nombres (?,?)}";
-
-        try ( CallableStatement call = con.prepareCall(sql)) {
-
-            call.setString(1, newName);
-            call.setString(2, oldName);
-
-            res = call.executeUpdate();
-
-        }
-        return res;
-    }
-    
 }

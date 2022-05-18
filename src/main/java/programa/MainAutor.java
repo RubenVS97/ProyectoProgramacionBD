@@ -50,15 +50,13 @@ public class MainAutor {
             System.out.println("-----------------------------------------");
             System.out.println("Modificación de la persona con pk 5");
             System.out.println("Nº Personas modificadas "
-                    + autorDao.updateAutor(5, new Autor(7, "NuevoNombre", "", "", 2)));
+                    + autorDao.updateAutor(1, new Autor(2, "NuevoNombre", "drhz", "sdg<", 1)));
             System.out.println("-----------------------------------------");
             nuevaLista = autorDao.getAll();
             System.out.println("-------- Lista con datos recogidos desde la B.D despues de modificar una persona -------------");
             nuevaLista.forEach(System.out::println);
             System.out.println("-----------------------------------------");
             System.out.println("Ejecución del procedimiento almacenado");
-            System.out.println("Se cambia María Weston por Felipe Román");
-            System.out.println("Nombres cambiados " + autorDao.cambiarNombres("Autor1", "Maria Weston"));
             System.out.println("-----------------------------------------");
             nuevaLista = autorDao.getAll();
             System.out.println("-------- Lista con datos recogidos desde la B.D despues de ejecutar proced. -------------");
@@ -73,4 +71,3 @@ public class MainAutor {
 
     }
 }
-

@@ -150,7 +150,7 @@ public class AutorDAO implements IAutor {
     public int updateAutor(int pk, Autor nuevosDatos) throws SQLException {
 
         int numFilas = 0;
-        String sql = "update Autor set nombre = ?, ape1 = ?, ape2 = ?, numLibro = ?, where numAutor=?";
+        String sql = "update Autor set nombre = ?, ape1 = ?, ape2 = ?, numLibros = ?, where numAutor=?";
 
         if (findByPk(pk) == null) {
 
@@ -159,32 +159,15 @@ public class AutorDAO implements IAutor {
 
             try ( PreparedStatement prest = con.prepareStatement(sql)) {
 
-                prest.setInt(1, pk);
-                prest.setString(2, nuevosDatos.getNombre());
-                prest.setString(3, nuevosDatos.getApe1());
-                prest.setString(4, nuevosDatos.getApe2());
-                prest.setInt(5, nuevosDatos.getNumLibros());
+                prest.setString(1, nuevosDatos.getNombre());
+                prest.setString(2, nuevosDatos.getApe1());
+                prest.setString(3, nuevosDatos.getApe2());
+                prest.setInt(4, nuevosDatos.getNumLibros());
+                prest.setInt(5, pk);
                 numFilas = prest.executeUpdate();
             }
             return numFilas;
         }
-    }
-
-    public int cambiarNombres(String newName, String oldName) throws SQLException {
-
-        int res = 0;
-
-        String sql = "{call cambiar_nombres (?,?)}";
-
-        try ( CallableStatement call = con.prepareCall(sql)) {
-
-            call.setString(1, newName);
-            call.setString(2, oldName);
-
-            res = call.executeUpdate();
-
-        }
-        return res;
     }
 
 }

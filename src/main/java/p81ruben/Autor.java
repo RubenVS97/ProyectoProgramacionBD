@@ -9,7 +9,7 @@ package p81ruben;
  * @author ruben
  */
 public class Autor {
-    
+
     private int numAutor;
     private String nombre;
     private String ape1;
@@ -18,7 +18,7 @@ public class Autor {
 
     public Autor() {
     }
-    
+
     public Autor(int numAutor, String nombre, String ape1, String ape2, int numLibros) {
         this.numAutor = numAutor;
         this.nombre = nombre;
@@ -26,7 +26,7 @@ public class Autor {
         this.ape2 = ape2;
         this.numLibros = numLibros;
     }
-    
+
     public int getNumAutor() {
         return numAutor;
     }
@@ -71,7 +71,5 @@ public class Autor {
     public String toString() {
         return "Autor{" + "numAutor=" + numAutor + ", nombre=" + nombre + ", ape1=" + ape1 + ", ape2=" + ape2 + ", numLibros=" + numLibros + '}';
     }
-    
-    
-    
+
 }

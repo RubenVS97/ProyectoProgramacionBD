@@ -147,30 +147,13 @@ public class EditorialDAO implements IEditorial {
 
             try ( PreparedStatement prest = con.prepareStatement(sql)) {
 
-                prest.setInt(1, pk);
-                prest.setString(2, nuevosDatos.getNombre());
-                prest.setInt(3, nuevosDatos.getNumTotalLibros());
+                prest.setInt(3, pk);
+                prest.setString(1, nuevosDatos.getNombre());
+                prest.setInt(2, nuevosDatos.getNumTotalLibros());
                 numFilas = prest.executeUpdate();
             }
             return numFilas;
         }
-    }
-    
-    public int cambiarNombres(String newName, String oldName) throws SQLException {
-
-        int res = 0;
-
-        String sql = "{call cambiar_nombres (?,?)}";
-
-        try ( CallableStatement call = con.prepareCall(sql)) {
-
-            call.setString(1, newName);
-            call.setString(2, oldName);
-
-            res = call.executeUpdate();
-
-        }
-        return res;
     }
 
 }
