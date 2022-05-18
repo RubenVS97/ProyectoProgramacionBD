@@ -56,7 +56,7 @@ public class AutorDAO implements IAutor {
         ResultSet res = null;
         Autor a = new Autor();
 
-        String sql = "select * from persona where pk=?";
+        String sql = "select * from Autor where numAutor=?";
 
         try ( PreparedStatement prest = con.prepareStatement(sql)) {
 
@@ -79,19 +79,17 @@ public class AutorDAO implements IAutor {
     }
 
     @Override
-    public int insertPersona(Autor a) throws SQLException {
+    public int insertAutor(Autor a) throws SQLException {
 
         int numFilas = 0;
         String sql = "insert into Autor values (?,?,?,?,?)";
 
         if (findByPk(a.getNumAutor()) != null) {
-            // Existe un registro con esa pk
-            // No se hace la inserción
+
             return numFilas;
         } else {
 
             try ( PreparedStatement prest = con.prepareStatement(sql)) {
-
 
                 prest.setInt(1, a.getNumAutor());
                 prest.setString(2, a.getNombre());
@@ -107,18 +105,18 @@ public class AutorDAO implements IAutor {
     }
 
     @Override
-    public int insertPersona(List<Autor> lista) throws SQLException {
+    public int insertAutor(List<Autor> lista) throws SQLException {
         int numFilas = 0;
 
         for (Autor tmp : lista) {
-            numFilas += insertPersona(tmp);
+            numFilas += insertAutor(tmp);
         }
 
         return numFilas;
     }
 
     @Override
-    public int deletePersona() throws SQLException {
+    public int deleteAutor() throws SQLException {
 
         String sql = "delete from Autor";
 
@@ -134,14 +132,12 @@ public class AutorDAO implements IAutor {
     }
 
     @Override
-    public int deletePersona(Autor persona) throws SQLException {
+    public int deleteAutor(Autor persona) throws SQLException {
         int numFilas = 0;
 
-        String sql = "delete from persona where pk = ?";
+        String sql = "delete from Autor where numAutor = ?";
 
-        // Sentencia parametrizada
         try ( PreparedStatement prest = con.prepareStatement(sql)) {
-
 
             prest.setInt(1, persona.getNumAutor());
 
@@ -151,24 +147,23 @@ public class AutorDAO implements IAutor {
     }
 
     @Override
-    public int updatePersona(int pk, Autor nuevosDatos) throws SQLException {
+    public int updateAutor(int pk, Autor nuevosDatos) throws SQLException {
 
         int numFilas = 0;
-        String sql = "update persona set nombre = ?, fecha_nac = ? where pk=?";
+        String sql = "update Autor set nombre = ?, ape1 = ?, ape2 = ?, numLibro = ?, where numAutor=?";
 
         if (findByPk(pk) == null) {
-            // La persona a actualizar no existe
+
             return numFilas;
         } else {
-            // Instanciamos el objeto PreparedStatement para inserción
-            // de datos. Sentencia parametrizada
+
             try ( PreparedStatement prest = con.prepareStatement(sql)) {
 
-                // Establecemos los parámetros de la sentencia
-                prest.setString(1, nuevosDatos.getNombre());
-                prest.setDate(2, Date.valueOf(nuevosDatos.getFechaNacimiento()));
-                prest.setInt(3, pk);
-
+                prest.setInt(1, pk);
+                prest.setString(2, nuevosDatos.getNombre());
+                prest.setString(3, nuevosDatos.getApe1());
+                prest.setString(4, nuevosDatos.getApe2());
+                prest.setInt(5, nuevosDatos.getNumLibros());
                 numFilas = prest.executeUpdate();
             }
             return numFilas;
@@ -178,16 +173,14 @@ public class AutorDAO implements IAutor {
     public int cambiarNombres(String newName, String oldName) throws SQLException {
 
         int res = 0;
-        // Dos ?, uno para newName y otro para oldName
 
         String sql = "{call cambiar_nombres (?,?)}";
 
-        // Preparamos la llamada al procedimiento almacenado
         try ( CallableStatement call = con.prepareCall(sql)) {
-            // Establecemos parámetros a pasar al procedimiento
+
             call.setString(1, newName);
             call.setString(2, oldName);
-            // Ejecutamos el procedimiento
+
             res = call.executeUpdate();
 
         }

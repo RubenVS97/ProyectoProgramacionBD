@@ -16,6 +16,17 @@ public class Autor {
     private String ape2;
     private int numLibros;
 
+    public Autor() {
+    }
+    
+    public Autor(int numAutor, String nombre, String ape1, String ape2, int numLibros) {
+        this.numAutor = numAutor;
+        this.nombre = nombre;
+        this.ape1 = ape1;
+        this.ape2 = ape2;
+        this.numLibros = numLibros;
+    }
+    
     public int getNumAutor() {
         return numAutor;
     }
