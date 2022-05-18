@@ -50,8 +50,8 @@ public class MainEditorial {
             nuevaLista.forEach(System.out::println);
             System.out.println("-----------------------------------------");
             System.out.println("Modificación de la persona con pk 5");
-            //System.out.println("Nº Personas modificadas "
-            //        + editorialDao.updateEditorial(1, new Editorial(7, "Planeta", 7)));
+            System.out.println("Nº Personas modificadas "
+                    + editorialDao.updateEditorial(1, new Editorial(7, "Planeta", 7)));
             System.out.println("-----------------------------------------");
             nuevaLista = editorialDao.getAll();
             System.out.println("-------- Lista con datos recogidos desde la B.D despues de modificar una persona -------------");
